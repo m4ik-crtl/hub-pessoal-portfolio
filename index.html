@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Notebooks - Aiqon</title>
+    <style>
+        /* Importando uma fonte para um visual mais moderno */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        /* Animação para as bolhas de fundo */
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(40px, -60px);
+            }
+
+            50% {
+                transform: translate(-30px, 50px);
+            }
+
+            75% {
+                transform: translate(20px, -40px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Estilos Gerais */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eaf2f2;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            /* Espaçamento padrão para telas maiores */
+            min-height: 100vh;
+        }
+
+        /* Container para as bolhas de fundo */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.6;
+            animation: move 30s infinite alternate ease-in-out;
+        }
+
+        .blob1 {
+            width: 400px;
+            height: 400px;
+            background: #005860;
+            top: -150px;
+            left: -150px;
+        }
+
+        .blob2 {
+            width: 300px;
+            height: 300px;
+            background: #00aab8;
+            bottom: -100px;
+            right: -100px;
+            animation-duration: 40s;
+        }
+
+        /* Container Principal */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Cabeçalho */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header .logo {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            /* Leve ajuste no tamanho da fonte para mobile */
+            color: #003e43;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #005860;
+        }
+
+        /* Grid de Cards Responsivo */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            /* Reduzi o minmax para 320px para caber melhor em telas menores */
+            gap: 25px;
+        }
+
+        /* Estilo do Card Liquid Glass */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 47, 51, 0.15);
+            padding: 25px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px 0 rgba(0, 47, 51, 0.2);
+        }
+
+        .glass-card h3 {
+            margin: 0 0 8px 0;
+            color: #003e43;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .glass-card p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #005860;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #005860;
+            font-weight: bold;
+        }
+
+        /* NOVO: Media Query para otimizar em telas pequenas */
+        @media (max-width: 600px) {
+            body {
+                padding: 30px 15px;
+                /* Reduz o padding lateral e superior */
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+                /* Diminui o título principal no celular */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-container">
+        <div class="background-blob blob1"></div>
+        <div class="background-blob blob2"></div>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MzcuOCAxNzQuMiI+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI5LjYuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4xIEJ1aWxkIDkpICAtLT4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLnN0MCwgLnN0MSB7CiAgICAgICAgZmlsbDogZ3JheTsKICAgICAgfQoKICAgICAgLnN0MSB7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CgogICAgICAuc3QyIHsKICAgICAgICBmaWxsOiAjMDA5NGE5OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MjcuMiw1MC44Yy03LjQtNy40LTE2LjYtMTAuOC0yNy0xMC44cy0xOS41LDMuNS0yNi45LDEwLjljLTcuNiw3LjYtMTAuOSwxNy4yLTEwLjksMjcuOHY1Ny4xaDE1di01Ni4yYzAtNi44LDEuOS0xMyw2LjYtMTgsNC40LTQuNiw5LjctNi45LDE2LjEtNi45czExLjcsMi4yLDE2LjEsNi45YzQuOCw1LDYuNiwxMS4yLDYuNiwxOHY1Ni4yaDE1di01Ny4xYy4yLTEwLjYtMy0yMC4zLTEwLjYtMjcuOWgwWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwNC4zLDM3LjdjLTI3LjIsMC00OS40LDIyLjEtNDkuNCw0OS40czIyLjEsNDkuNCw0OS40LDQ5LjQsNDkuNC0yMi4xLDQ5LjQtNDkuNC0yMi4yLTQ5LjQtNDkuNC00OS40Wk00MDQuMywxMjAuNWMtMTguNCwwLTMzLjQtMTUtMzMuNC0zMy40czE1LTMzLjQsMzMuNC0zMy40LDMzLjQsMTUsMzMuNCwzMy40LTE1LDMzLjQtMzMuNCwzMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTMwMSw0MGMtMTIuNiwwLTIzLjUsNC42LTMyLjEsMTMuOC05LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjItLjYsMTMuNS0yLjF2LTE1LjhjLS40LjItLjguNC0xLjIuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcuMSw5LjEtMjMuN2M1LjYtNS45LDEyLjMtOS41LDIwLjUtOS41czE1LjcsMy4xLDIxLjQsOS43YzUuOSw2LjgsOC42LDE0LjYsOC42LDIzLjZ2ODYuMmgxNXYtODYuM2MwLTEzLTMuOS0yNC43LTEzLTM0LjItOC41LTkuMS0xOS4zLTEzLjctMzEuOS0xMy43aDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjI5LjUsNDBoMTV2OTUuN2gtMTVWNDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTczLjEsNDBjLTEyLjYsMC0yMy41LDQuNi0zMi4xLDEzLjgtOC45LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjEtLjYsMTMuNC0yLjF2LTE1LjdjLS40LjItLjcuNC0xLjEuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcsOS4xLTIzLjdjNS42LTUuOSwxMi4zLTkuNSwyMC41LTkuNXMxNS43LDMuMSwyMS40LDkuNmM1yjksNi44LDguNiwxNC42LDguNiwyMy42djE1aC0uMXYyMC42aC4xYzAsMCwwLDEyLjIsMCwxMi4yaDE1di00Ny45YzAtMTMtMy45LTI0LjctMTMtMzQuMi04LjYtOS4xLTE5LjQtMTMuNy0zMS45LTEzLjdoMFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMy4zLDQ4LjZjLTcsMjQuMiwzNi43LDQyLjIsNTMuOCw3MC44LDE2LjgsMjguMi0yLjQsNDMuMS0xNi41LDU0LjgsNS42LTE4LjUtMTctMzAuMy0zNi42LTUyLTE5LjQtMjEuMi0xNy43LTUwLjItLjctNzMuNloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MiIgZD0iTTYyLjQsMGMtOC42LDI5LjcsNTEuMiw0MS45LDUwLjgsODUuOCwwLDEzLjctNi43LDI1LjktMTYuMiw0MC40LDguMS0xNi41LTE5LjctMzYuOC0zOS40LTU4LjRDMzguNCw0Ni42LDI3LjQsMjIuNSw2Mi40LDBaIi8+Cjwvc3ZnPg=="
+                alt="Logo Aiqon" class="logo">
+            <h1>Central de Notebooks</h1>
+            <p>Bases de conhecimento e guias interativos.</p>
+        </header>
+
+        <main class="cards-grid">
+            <a href="https://notebooklm.google.com/notebook/25d92c47-f9d9-42c5-b321-f93aa9b98571" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>A Aiqon</h3>
+                    <p>Tudo sobre a AIQON.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/3f306552-d2e1-42de-be29-ab8ada6ee63c" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - Odoo e Procedimentos Internos</h3>
+                    <p>Processos e instruções internas da AIQON.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/38a23387-6814-49c8-b050-f0020d531037" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - Endpoint Management</h3>
+                    <p>Soluções de Endpoint Management são produtos de software que ajudam as organizações a rastrear
+                        seus dispositivos, garantir uma configuração reforçada, manter software seguro e atualizado, e
+                        realizar gestão de ativos, gerenciamento de patches e avaliação de conformidade.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/544db036-4a48-4d6b-8eb4-3c04c301993a" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - AppSec</h3>
+                    <p>A segurança de aplicações (AppSec) refere-se ao processo de identificação e correção de
+                        vulnerabilidades no software, desde o desenvolvimento até a implementação, para evitar acesso,
+                        modificação ou uso indevido não autorizado</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/d53096d9-dfb8-4c08-95c7-7f48afb51f24" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - Identidade</h3>
+                    <p>Identidade digital é uma coleção de atributos distintivos (como nome de usuário, credenciais de
+                        login, cargo e direitos de acesso) vinculados a uma entidade específica (humana ou não humana),
+                        utilizada para validar usuários e determinar as ações que eles podem realizar em um sistema.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/bdcab46f-0418-4491-8640-f7358ace5594" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - Directory Management</h3>
+                    <p>O Directory Management é uma solução IAM (Identity and Access Management) que automatiza fluxos
+                        de trabalho de identidade, protege o acesso de usuários e oferece eficiência e governança no
+                        gerenciamento de identidades e contas em diretórios, como Active Directory e Microsoft Entra ID.
+                    </p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/af609599-35dc-42bd-ba53-e5d2a31b9bd7" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - ITDR</h3>
+                    <p>Soluções de detecção e resposta a ameaças de identidade (ITDR) são ferramentas proativas de
+                        cibersegurança que monitoram sistemas para descobrir e corrigir ameaças e vulnerabilidades
+                        baseadas em identidade, como elevação de privilégios e configurações incorretas de contas.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/6edd6e73-15a8-41a1-95aa-6c3f8a5dac6f" target="_blank"
+                class="glass-card">
+                <div>
+                    <h3>Chat - DSPM</h3>
+                    <p>O Gerenciamento de Postura de Segurança de Dados (DSPM) é uma tecnologia de cibersegurança que
+                        identifica dados confidenciais em vários ambientes e serviços de nuvem, avaliando sua
+                        vulnerabilidade a ameaças à segurança e risco de não conformidade regulatória.</p>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+    </script>
+</body>
+
+</html>
