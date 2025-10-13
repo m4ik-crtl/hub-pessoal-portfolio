@@ -39,7 +39,6 @@
             color: #333;
             margin: 0;
             padding: 40px 20px;
-            /* Espaçamento padrão para telas maiores */
             min-height: 100vh;
         }
 
@@ -101,7 +100,6 @@
         .header h1 {
             margin: 0;
             font-size: 2.2em;
-            /* Leve ajuste no tamanho da fonte para mobile */
             color: #003e43;
             font-weight: 600;
         }
@@ -115,7 +113,6 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            /* Reduzi o minmax para 320px para caber melhor em telas menores */
             gap: 25px;
         }
 
@@ -142,6 +139,11 @@
             box-shadow: 0 12px 40px 0 rgba(0, 47, 51, 0.2);
         }
 
+        .card-content {
+            flex-grow: 1;
+            /* Faz esta div crescer para empurrar o rodapé para baixo */
+        }
+
         .glass-card h3 {
             margin: 0 0 8px 0;
             color: #003e43;
@@ -153,8 +155,27 @@
             margin: 0;
             font-size: 0.95em;
             color: #005860;
-            flex-grow: 1;
         }
+
+        /* NOVO: Estilos para as Tags */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 15px;
+            /* Espaço entre a descrição e as tags */
+        }
+
+        .tag {
+            background-color: rgba(0, 88, 96, 0.1);
+            color: #003e43;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        /* Fim dos estilos das Tags */
 
         .card-footer {
             display: flex;
@@ -166,16 +187,13 @@
             font-weight: bold;
         }
 
-        /* NOVO: Media Query para otimizar em telas pequenas */
         @media (max-width: 600px) {
             body {
                 padding: 30px 15px;
-                /* Reduz o padding lateral e superior */
             }
 
             .header h1 {
                 font-size: 1.8em;
-                /* Diminui o título principal no celular */
             }
         }
     </style>
@@ -190,8 +208,8 @@
 
     <div class="main-container">
         <header class="header">
-                <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MzcuOCAxNzQuMiI+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI5LjYuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4xIEJ1aWxkIDkpICAtLT4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLnN0MCwgLnN0MSB7CiAgICAgICAgZmlsbDogZ3JheTsKICAgICAgfQoKICAgICAgLnN0MSB7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CgogICAgICAuc3QyIHsKICAgICAgICBmaWxsOiAjMDA5NGE5OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MjcuMiw1MC44Yy03LjQtNy40LTE2LjYtMTAuOC0yNy0xMC44cy0xOS41LDMuNS0yNi45LDEwLjljLTcuNiw3LjYtMTAuOSwxNy4yLTEwLjksMjcuOHY1Ny4xaDE1di01Ni4yYzAtNi44LDEuOS0xMyw2LjYtMTgsNC40LTQuNiw5LjctNi45LDE2LjEtNi45czExLjcsMi4yLDE2LjEsNi45YzQuOCw1LDYuNiwxMS4yLDYuNiwxOHY1Ni4yaDE1di01Ny4xYy4yLTEwLjYtMy0yMC4zLTEwLjYtMjcuOWgwWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwNC4zLDM3LjdjLTI3LjIsMC00OS40LDIyLjEtNDkuNCw0OS40czIyLjEsNDkuNCw0OS40LDQ5LjQsNDkuNC0yMi4xLDQ5LjQtNDkuNC0yMi4yLTQ5LjQtNDkuNC00OS40Wk00MDQuMywxMjAuNWMtMTguNCwwLTMzLjQtMTUtMzMuNC0zMy40czE1LTMzLjQsMzMuNC0zMy40LDMzLjQsMTUsMzMuNCwzMy40LTE1LDMzLjQtMzMuNCwzMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTMwMSw0MGMtMTIuNiwwLTIzLjUsNC42LTMyLjEsMTMuOC05LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjItLjYsMTMuNS0yLjF2LTE1LjhjLS40LjItLjguNC0xLjIuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcuMSw5LjEtMjMuN2M1LjYtNS45LDEyLjMtOS41LDIwLjUtOS41czE1LjcsMy4xLDIxLjQsOS43YzUuOSw2LjgsOC42LDE0LjYsOC42LDIzLjZ2ODYuMmgxNXYtODYuM2MwLTEzLTMuOS0yNC43LTEzLTM0LjItOC41LTkuMS0xOS4zLTEzLjctMzEuOS0xMy43aDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjI5LjUsNDBoMTV2OTUuN2gtMTVWNDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTczLjEsNDBjLTEyLjYsMC0yMy41LDQuNi0zMi4xLDEzLjgtOC45LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjEtLjYsMTMuNC0yLjF2LTE1LjdjLS40LjItLjcuNC0xLjEuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcsOS4xLTIzLjdjNS42LTUuOSwxMi4zLTkuNSwyMC41LTkuNXMxNS43LDMuMSwyMS40LDkuNmM1LjksNi44LDguNiwxNC42LDguNiwyMy42djE1aC0uMXYyMC42aC4xYzAsMCwwLDEyLjIsMCwxMi4yaDE1di00Ny45YzAtMTMtMy45LTI0LjctMTMtMzQuMi04LjYtOS4xLTE5LjQtMTMuNy0zMS45LTEzLjdoMFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMy4zLDQ4LjZjLTcsMjQuMiwzNi43LDQyLjIsNTMuOCw3MC44LDE2LjgsMjguMi0yLjQsNDMuMS0xNi41LDU0LjgsNS42LTE4LjUtMTctMzAuMy0zNi42LTUyLTE5LjQtMjEuMi0xNy43LTUwLjItLjctNzMuNloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MiIgZD0iTTYyLjQsMGMtOC42LDI5LjcsNTEuMiw0MS45LDUwLjgsODUuOCwwLDEzLjctNi43LDI1LjktMTYuMiw0MC40LDguMS0xNi41LTE5LjctMzYuOC0zOS40LTU4LjRDMzguNCw0Ni42LDI3LjQsMjIuNSw2Mi40LDBaIi8+Cjwvc3ZnPg=="
-                    alt="Logo Aiqon" class="logo">
+            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MzcuOCAxNzQuMiI+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI5LjYuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4xIEJ1aWxkIDkpICAtLT4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLnN0MCwgLnN0MSB7CiAgICAgICAgZmlsbDogZ3JheTsKICAgICAgfQoKICAgICAgLnN0MSB7CiAgICAgICAgZmlsbC1ydWxlOiBldmVub2RkOwogICAgICB9CgogICAgICAuc3QyIHsKICAgICAgICBmaWxsOiAjMDA5NGE5OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MjcuMiw1MC44Yy03LjQtNy40LTE2LjYtMTAuOC0yNy0xMC44cy0xOS41LDMuNS0yNi45LDEwLjljLTcuNiw3LjYtMTAuOSwxNy4yLTEwLjksMjcuOHY1Ny4xaDE1di01Ni4yYzAtNi44LDEuOS0xMyw2LjYtMTgsNC40LTQuNiw5LjctNi45LDE2LjEtNi45czExLjcsMi4yLDE2LjEsNi45YzQuOCw1LDYuNiwxMS4yLDYuNiwxOHY1Ni4yaDE1di01Ny4xYy4yLTEwLjYtMy0yMC4zLTEwLjYtMjcuOWgwWiIvPgogICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTQwNC4zLDM3LjdjLTI3LjIsMC00OS40LDIyLjEtNDkuNCw0OS40czIyLjEsNDkuNCw0OS40LDQ5LjQsNDkuNC0yMi4xLDQ5LjQtNDkuNC0yMi4yLTQ5LjQtNDkuNC00OS40Wk00MDQuMywxMjAuNWMtMTguNCwwLTMzLjQtMTUtMzMuNC0zMy40czE1LTMzLjQsMzMuNC0zMy40LDMzLjQsMTUsMzMuNCwzMy40LTE1LDMzLjQtMzMuNCwzMy40WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTMwMSw0MGMtMTIuNiwwLTIzLjUsNC42LTMyLjEsMTMuOC05LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjItLjYsMTMuNS0yLjF2LTE1LjhjLS40LjItLjguNC0xLjIuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcuMSw5LjEtMjMuN2M1LjYtNS45LDEyLjMtOS41LDIwLjUtOS41czE1LjcsMy4xLDIxLjQsOS43YzUuOSw2LjgsOC42LDE0LjYsOC42LDIzLjZ2ODYuMmgxNXYtODYuM2MwLTEzLTMuOS0yNC43LTEzLTM0LjItOC41LTkuMS0xOS4zLTEzLjctMzEuOS0xMy43aDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjI5LjUsNDBoMTV2OTUuN2gtMTVWNDBaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTczLjEsNDBjLTEyLjYsMC0yMy41LDQuNi0zMi4xLDEzLjgtOC45LDkuNS0xMi45LDIxLjEtMTIuOSwzNC4xczMuOSwyNC43LDEzLDM0LjJjOC43LDkuMSwxOS41LDEzLjcsMzIsMTMuN3M5LjEtLjYsMTMuNC0yLjF2LTE1LjdjLS40LjItLjcuNC0xLjEuNi0zLjksMS45LTguMSwyLjYtMTIuNCwyLjYtOC4zLDAtMTQuOS0zLjYtMjAuNS05LjUtNi4zLTYuNi05LjEtMTQuNi05LjEtMjMuN3MyLjgtMTcsOS4xLTIzLjdjNS42LTUuOSwxMi4zLTkuNSwyMC41LTkuNXMxNS43LDMuMSwyMS40LDkuNmM1LjksNi44LDguNiwxNC42LDguNiwyMy42djE1aC0uMXYyMC42aC4xYzAsMCwwLDEyLjIsMCwxMi4yaDE1di00Ny45YzAtMTMtMy45LTI0LjctMTMtMzQuMi04LjYtOS4xLTE5LjQtMTMuNy0zMS45LTEzLjdoMFoiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMy4zLDQ4LjZjLTcsMjQuMiwzNi43LDQyLjIsNTMuOCw3MC44LDE2LjgsMjguMi0yLjQsNDMuMS0xNi41LDU0LjgsNS42LTE4LjUtMTctMzAuMy0zNi42LTUyLTE5LjQtMjEuMi0xNy43LTUwLjItLjctNzMuNloiLz4KICA8L2c+CiAgPHBhdGggY2xhc3M9InN0MiIgZD0iTTYyLjQsMGMtOC42LDI5LjcsNTEuMiw0MS45LDUwLjgsODUuOCwwLDEzLjctNi43LDI1LjktMTYuMiw0MC40LDguMS0xNi41LTE5LjctMzYuOC0zOS40LTU4LjRDMzguNCw0Ni42LDI3LjQsMjIuNSw2Mi40LDBaIi8+Cjwvc3ZnPg=="
+                alt="Logo Aiqon" class="logo">
             <h1>Central de Notebooks</h1>
             <p>Bases de conhecimento e guias interativos.</p>
         </header>
@@ -199,78 +217,112 @@
         <main class="cards-grid">
             <a href="https://notebooklm.google.com/notebook/25d92c47-f9d9-42c5-b321-f93aa9b98571" target="_blank"
                 class="glass-card">
-                <div>
+                <div class="card-content">
                     <h3>A Aiqon</h3>
                     <p>Tudo sobre a AIQON.</p>
                 </div>
+                <div class="card-tags"> <span class="tag">Institucional</span> </div>
                 <div class="card-footer">&rarr;</div>
             </a>
             <a href="https://notebooklm.google.com/notebook/3f306552-d2e1-42de-be29-ab8ada6ee63c" target="_blank"
                 class="glass-card">
-                <div>
+                <div class="card-content">
                     <h3>Chat - Odoo e Procedimentos Internos</h3>
                     <p>Processos e instruções internas da AIQON.</p>
                 </div>
-                <div class="card-footer">&rarr;</div>
-            </a>
-            <a href="https://notebooklm.google.com/notebook/38a23387-6814-49c8-b050-f0020d531037" target="_blank"
-                class="glass-card">
-                <div>
-                    <h3>Chat - Endpoint Management</h3>
-                    <p>Soluções de Endpoint Management são produtos de software que ajudam as organizações a rastrear
-                        seus dispositivos, garantir uma configuração reforçada, manter software seguro e atualizado, e
-                        realizar gestão de ativos, gerenciamento de patches e avaliação de conformidade.</p>
-                </div>
-                <div class="card-footer">&rarr;</div>
-            </a>
-            <a href="https://notebooklm.google.com/notebook/544db036-4a48-4d6b-8eb4-3c04c301993a" target="_blank"
-                class="glass-card">
-                <div>
-                    <h3>Chat - AppSec</h3>
-                    <p>A segurança de aplicações (AppSec) refere-se ao processo de identificação e correção de
-                        vulnerabilidades no software, desde o desenvolvimento até a implementação, para evitar acesso,
-                        modificação ou uso indevido não autorizado</p>
-                </div>
-                <div class="card-footer">&rarr;</div>
-            </a>
-            <a href="https://notebooklm.google.com/notebook/d53096d9-dfb8-4c08-95c7-7f48afb51f24" target="_blank"
-                class="glass-card">
-                <div>
-                    <h3>Chat - Identidade</h3>
-                    <p>Identidade digital é uma coleção de atributos distintivos (como nome de usuário, credenciais de
-                        login, cargo e direitos de acesso) vinculados a uma entidade específica (humana ou não humana),
-                        utilizada para validar usuários e determinar as ações que eles podem realizar em um sistema.</p>
-                </div>
-                <div class="card-footer">&rarr;</div>
-            </a>
-            <a href="https://notebooklm.google.com/notebook/bdcab46f-0418-4491-8640-f7358ace5594" target="_blank"
-                class="glass-card">
-                <div>
-                    <h3>Chat - Directory Management</h3>
-                    <p>O Directory Management é uma solução IAM (Identity and Access Management) que automatiza fluxos
-                        de trabalho de identidade, protege o acesso de usuários e oferece eficiência e governança no
-                        gerenciamento de identidades e contas em diretórios, como Active Directory e Microsoft Entra ID.
-                    </p>
-                </div>
-                <div class="card-footer">&rarr;</div>
-            </a>
-            <a href="https://notebooklm.google.com/notebook/af609599-35dc-42bd-ba53-e5d2a31b9bd7" target="_blank"
-                class="glass-card">
-                <div>
-                    <h3>Chat - ITDR</h3>
-                    <p>Soluções de detecção e resposta a ameaças de identidade (ITDR) são ferramentas proativas de
-                        cibersegurança que monitoram sistemas para descobrir e corrigir ameaças e vulnerabilidades
-                        baseadas em identidade, como elevação de privilégios e configurações incorretas de contas.</p>
-                </div>
+                <div class="card-tags"> <span class="tag">Processos</span> <span class="tag">Interno</span> <span
+                        class="tag">Odoo</span> </div>
                 <div class="card-footer">&rarr;</div>
             </a>
             <a href="https://notebooklm.google.com/notebook/6edd6e73-15a8-41a1-95aa-6c3f8a5dac6f" target="_blank"
                 class="glass-card">
-                <div>
+                <div class="card-content">
                     <h3>Chat - DSPM</h3>
-                    <p>O Gerenciamento de Postura de Segurança de Dados (DSPM) é uma tecnologia de cibersegurança que
-                        identifica dados confidenciais em vários ambientes e serviços de nuvem, avaliando sua
-                        vulnerabilidade a ameaças à segurança e risco de não conformidade regulatória.</p>
+                    <p>O Gerenciamento de Postura de Segurança de Dados (DSPM)...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Auditor</span> <span class="tag">Access Analyzer</span> <span
+                        class="tag">Data Classification</span> <span class="tag">Endpoint Protector</span> <span
+                        class="tag">1 Secure</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/d53096d9-dfb8-4c08-95c7-7f48afb51f24" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Identidade</h3>
+                    <p>Identidade digital é uma coleção de atributos distintivos...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Privilege Secure</span> <span class="tag">Directory
+                        Manager</span> <span class="tag">Endp. Privilege Manager</span> <span class="tag">Identity
+                        Manager</span> <span class="tag">PasswordSecure</span> <span class="tag">P Policy
+                        Enforcer</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/bdcab46f-0418-4491-8640-f7358ace5594" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Directory Management</h3>
+                    <p>O Directory Management é uma solução IAM...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Auditor</span> <span class="tag">Directory Manager</span>
+                    <span class="tag">P Policy Enforcer</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/38a23387-6814-49c8-b050-f0020d531037" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Endpoint Management</h3>
+                    <p>Soluções de Endpoint Management são produtos de software...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Syxsense</span> <span class="tag">Endpoint Protector</span>
+                    <span class="tag">Endp. Policy Manager</span> <span class="tag">ChangeTracker</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/af609599-35dc-42bd-ba53-e5d2a31b9bd7" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - ITDR</h3>
+                    <p>Soluções de detecção e resposta a ameaças de identidade (ITDR)...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">TM + TP</span> <span class="tag">Access Analyzer</span> <span
+                        class="tag">PingCastle</span> <span class="tag">RecoveryAD</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/544db036-4a48-4d6b-8eb4-3c04c301993a" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - AppSec</h3>
+                    <p>A segurança de aplicações (AppSec) refere-se ao processo...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Desenvolvimento Seguro</span> <span class="tag">AppSec</span>
+                </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/cc01dd4b-1d81-4de1-a480-d219ea2cf184" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Cynet</h3>
+                    <p>A Cynet é uma plataforma de segurança all-in-one...</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Cynet</span> <span class="tag">XDR</span> <span
+                        class="tag">All-in-one</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/40e380c4-b5f0-4aee-84f8-778db654be3a" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Documentação Suporte Técnico</h3>
+                    <p>Chat com informações técnicas para o Suporte Técnico.</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Suporte</span> <span class="tag">Documentação</span> </div>
+                <div class="card-footer">&rarr;</div>
+            </a>
+            <a href="https://notebooklm.google.com/notebook/3fc2b92a-da08-4a0e-99e5-f83e7d1adc98" target="_blank"
+                class="glass-card">
+                <div class="card-content">
+                    <h3>Chat - Active Directory</h3>
+                    <p>Chat com informações técnicas do Netwrix Active Directory.</p>
+                </div>
+                <div class="card-tags"> <span class="tag">Netwrix</span> <span class="tag">Active Directory</span>
                 </div>
                 <div class="card-footer">&rarr;</div>
             </a>
